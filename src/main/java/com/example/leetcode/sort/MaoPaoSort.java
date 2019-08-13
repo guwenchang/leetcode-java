@@ -1,44 +1,37 @@
 package com.example.leetcode.sort;
 
-import java.util.Arrays;
+import javax.xml.stream.FactoryConfigurationError;
 
 /**
  * 冒泡排序
+ * 每次遍历寻找最大元素并至于数组最后
  * @author guwenchang
  * @date 2019-07-11 14:29
  */
-public class MaoPaoSort {
+public class MaoPaoSort implements Sort {
 
-    public static void main(String[] args) {
-        int[] nums = new int[]{2,3,5,1,6};
-        sort2(nums);
-        System.out.println(Arrays.toString(nums));
-    }
-
-    public static void sort(int[] nums){
+    @Override
+    public void sort(int[] nums){
+        if (nums.length == 0){
+            return;
+        }
+        boolean swap;
         for (int i = 0; i< nums.length;i++){
-            for (int j = 0; j< nums.length-1-i;j++){
-                if (nums[j+1] < nums[j]){
-                    int tmp = nums[j+1];
-                    nums[j+1] = nums[j];
-                    nums[j] = tmp;
+            swap = false;
+            for (int j = 0; j < nums.length-1-i;j++){
+                if (nums[j] > nums[j+1]){
+                    swap = true;
+                    int tmp = nums[j];
+                    nums[j] = nums[j+1];
+                    nums[j+1] = tmp;
                 }
             }
-        }
-    }
-
-    public static void sort2(int[] nums){
-        for (int i = 0; i< nums.length;i++){
-            int minIndex = i;
-            for (int j = i; j< nums.length;j++){
-                if (nums[j] < nums[minIndex]){
-                    minIndex = j;
-                }
+            if (!swap){
+                return;
             }
-            int temp = nums[minIndex];
-            nums[minIndex] = nums[i];
-            nums[i] = temp;
         }
+
+
     }
 
 

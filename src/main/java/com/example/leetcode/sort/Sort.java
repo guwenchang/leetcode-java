@@ -10,6 +10,6 @@ public interface Sort {
      * 排序
      * @param nums
      */
-    void sort(int[] nums);
+    int[] sort(int[] nums);
 
 }

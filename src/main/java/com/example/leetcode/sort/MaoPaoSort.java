@@ -1,6 +1,5 @@
 package com.example.leetcode.sort;
 
-import javax.xml.stream.FactoryConfigurationError;
 
 /**
  * 冒泡排序
@@ -11,13 +10,12 @@ import javax.xml.stream.FactoryConfigurationError;
 public class MaoPaoSort implements Sort {
 
     @Override
-    public void sort(int[] nums){
+    public int[] sort(int[] nums){
         if (nums.length == 0){
-            return;
+            return nums;
         }
-        boolean swap;
         for (int i = 0; i< nums.length;i++){
-            swap = false;
+            boolean swap = false;
             for (int j = 0; j < nums.length-1-i;j++){
                 if (nums[j] > nums[j+1]){
                     swap = true;
@@ -27,10 +25,10 @@ public class MaoPaoSort implements Sort {
                 }
             }
             if (!swap){
-                return;
+                return nums;
             }
         }
-
+        return nums;
 
     }
 

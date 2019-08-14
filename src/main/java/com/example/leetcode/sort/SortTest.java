@@ -10,8 +10,8 @@ public class SortTest {
 
     public static void main(String[] args) {
         int[] nums = new int[]{2,3,5,1,6};
-        Sort sort = new insertSort();
-        sort.sort(nums);
+        Sort sort = new QuickSort();
+        nums = sort.sort(nums);
         System.out.println(Arrays.toString(nums));
     }
 }

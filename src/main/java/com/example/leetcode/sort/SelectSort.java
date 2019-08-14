@@ -9,13 +9,13 @@ package com.example.leetcode.sort;
 public class SelectSort implements Sort {
 
     @Override
-    public void sort(int[] nums){
+    public int[] sort(int[] nums){
         if (nums.length == 0){
-            return;
+            return nums;
         }
         for (int i = 0; i< nums.length;i++){
             int minIndex = i;
-            for (int j = i; j < nums.length;j++){
+            for (int j = i + 1; j < nums.length;j++){
                 if (nums[j] < nums[minIndex]){
                     minIndex = j;
                 }
@@ -24,8 +24,7 @@ public class SelectSort implements Sort {
             nums[i] = nums[minIndex];
             nums[minIndex] = tmp;
         }
-
-
+        return nums;
     }
 
 

@@ -39,7 +39,10 @@ public class Test2 {
         node1.next.next = new Node(3);
         node1.next.next.next = new Node(4);
         //5-6
-        Node node2 = new Node(5);
+        Node node2 = new Node(0);
+        node2.next = new Node(0);
+        node2.next.next = new Node(0);
+        node2.next.next.next = new Node(9);
         //链表反转
         Node p1 = reverse(node1);
         Node p2 = reverse(node2);
@@ -66,7 +69,12 @@ public class Test2 {
         if (p2 != null){
             sum = p2;
         }
-
+        if (sum != null && add == 1){
+            sum.value++;
+        }
+        if (sum == null && add == 1){
+            sum = new Node(1);
+        }
         print(sum);
 
     }

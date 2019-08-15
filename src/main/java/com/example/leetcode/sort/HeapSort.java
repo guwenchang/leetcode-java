@@ -10,54 +10,53 @@ package com.example.leetcode.sort;
 public class HeapSort implements Sort {
 
     @Override
-    public int[] sort(int[] arr) {
-        //1.构建大顶堆
-        for (int i = arr.length / 2 - 1; i >= 0; i--) {
-            //从第一个非叶子结点从下至上，从右至左调整结构
-            adjustHeap(arr, i, arr.length);
-        }
-        //2.调整堆结构+交换堆顶元素与末尾元素
-        for (int j = arr.length - 1; j > 0; j--) {
-            swap(arr, 0, j);//将堆顶元素与末尾元素进行交换
-            adjustHeap(arr, 0, j);//重新对堆进行调整
-        }
-        return arr;
-    }
-
-    /**
-     * 调整大顶堆（仅是调整过程，建立在大顶堆已构建的基础上）
-     *
-     * @param arr
-     * @param i
-     * @param length
-     */
-    public void adjustHeap(int[] arr, int i, int length) {
-        int temp = arr[i];//先取出当前元素i
-        for (int k = i * 2 + 1; k < length; k = k * 2 + 1) {//从i结点的左子结点开始，也就是2i+1处开始
-            if (k + 1 < length && arr[k] < arr[k + 1]) {//如果左子结点小于右子结点，k指向右子结点
-                k++;
-            }
-            if (arr[k] > temp) {//如果子节点大于父节点，将子节点值赋给父节点（不用进行交换）
-                arr[i] = arr[k];
-                i = k;
-            } else {
+    public int[] sort(int[] nums) {
+        int lastIndex = nums.length-1;
+        buildMaxHeap(nums, lastIndex);
+        while(lastIndex > 0){
+            swap(nums, 0, lastIndex);
+            if(--lastIndex == 0){
+                //只剩一个元素，就不用调整堆了，排序结束
                 break;
             }
+            adjustHeap(nums,0,lastIndex);
         }
-        arr[i] = temp;//将temp值放到最终的位置
+        return nums;
+    }
+    public void buildMaxHeap(int[] arr, int lastIndex) {
+        // 从最后一个元素的父节点开始进行调整，一直调整到根节点结束
+        int j = (lastIndex - 1) / 2;
+        while (j >= 0) {
+            adjustHeap(arr, j--, lastIndex);
+        }
     }
 
-    /**
-     * 交换元素
-     *
-     * @param arr
-     * @param a
-     * @param b
-     */
-    public void swap(int[] arr, int a, int b) {
-        int temp = arr[a];
-        arr[a] = arr[b];
-        arr[b] = temp;
+    public void adjustHeap(int[] arr, int rootIndex, int lastIndex) {
+        //从根节点开始往下调整
+        int biggerIndex = rootIndex;
+        int leftChildIndex = rootIndex * 2 + 1;
+        int rightChildIndex = rootIndex * 2 + 2;
+        if(rightChildIndex <= lastIndex){
+            //如果右孩子存在，则左孩子一定存在
+            if(arr[rightChildIndex] > arr[rootIndex] || arr[leftChildIndex] > arr[rootIndex]){
+                //将子节点更大的元素下标赋值给biggerIndex
+                biggerIndex = arr[rightChildIndex] > arr[leftChildIndex]?rightChildIndex:leftChildIndex;
+            }
+        }
+        else if(leftChildIndex <= lastIndex){
+            //保证左孩子存在，且不能越界
+            if(arr[leftChildIndex] > arr[rootIndex]){
+                biggerIndex = leftChildIndex;
+            }
+        }
+        if(biggerIndex != rootIndex){
+            swap(arr, biggerIndex, rootIndex);
+            adjustHeap(arr, biggerIndex, lastIndex);
+        }
     }
-
+    public void swap(int[] arr, int biggerIndex, int rootIndex) {
+        int temp = arr[rootIndex];
+        arr[rootIndex] = arr[biggerIndex];
+        arr[biggerIndex] = temp;
+    }
 }

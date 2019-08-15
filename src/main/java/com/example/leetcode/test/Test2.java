@@ -32,19 +32,22 @@ public class Test2 {
         Node l2 = reverse(node2);
         Node root = new Node(0);
         Node cursor = root;
+        //进位
         int carry = 0;
         while(l1 != null || l2 != null || carry != 0) {
             int l1Val = l1 != null ? l1.val : 0;
             int l2Val = l2 != null ? l2.val : 0;
             int sumVal = l1Val + l2Val + carry;
             carry = sumVal / 10;
-
             Node sumNode = new Node(sumVal % 10);
             cursor.next = sumNode;
             cursor = sumNode;
-
-            if(l1 != null) l1 = l1.next;
-            if(l2 != null) l2 = l2.next;
+            if(l1 != null) {
+                l1 = l1.next;
+            }
+            if(l2 != null) {
+                l2 = l2.next;
+            }
         }
         print(root.next);
 

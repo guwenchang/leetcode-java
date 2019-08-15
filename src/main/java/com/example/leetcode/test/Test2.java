@@ -63,12 +63,14 @@ public class Test2 {
             p2 = p2.next;
             sum = sum.next;
         }
+        //差位处理
         if (p1 != null){
             sum = p1;
         }
         if (p2 != null){
             sum = p2;
         }
+        //末位进1处理
         if (sum != null && add == 1){
             sum.value++;
         }

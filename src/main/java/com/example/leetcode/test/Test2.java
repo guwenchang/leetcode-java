@@ -8,27 +8,11 @@ package com.example.leetcode.test;
 public class Test2 {
 
     static class Node {
-        private int value;
-        private Node next;
+         int val;
+         Node next;
 
-        public int getValue() {
-            return value;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
-
-        public Node getNext() {
-            return next;
-        }
-
-        public void setNext(Node next) {
-            this.next = next;
-        }
-
-        public Node(int value) {
-            this.value = value;
+        public Node(int val) {
+            this.val = val;
         }
     }
 
@@ -39,51 +23,36 @@ public class Test2 {
         node1.next.next = new Node(3);
         node1.next.next.next = new Node(4);
         //5-6
-        Node node2 = new Node(0);
-        node2.next = new Node(0);
-        node2.next.next = new Node(0);
-        node2.next.next.next = new Node(9);
+        Node node2 = new Node(1);
+        node2.next = new Node(2);
+        node2.next.next = new Node(3);
+        node2.next.next.next = new Node(4);
         //链表反转
-        Node p1 = reverse(node1);
-        Node p2 = reverse(node2);
-        int add = 0;
-        Node sum = new Node(0);
-        //同位相加
-        while (p1 != null && p2 != null){
-            sum = new Node(0);
-            int sumValue = p1.value + p2.value +add;
-            add = 0;
-            if (sumValue >= 10){
-                add = 1;
-                sumValue = sumValue - 10;
-            }
-            sum.setValue(sumValue);
-            System.out.println(sum.value);
-            p1 = p1.next;
-            p2 = p2.next;
-            sum = sum.next;
+        Node l1 = reverse(node1);
+        Node l2 = reverse(node2);
+        Node root = new Node(0);
+        Node cursor = root;
+        int carry = 0;
+        while(l1 != null || l2 != null || carry != 0) {
+            int l1Val = l1 != null ? l1.val : 0;
+            int l2Val = l2 != null ? l2.val : 0;
+            int sumVal = l1Val + l2Val + carry;
+            carry = sumVal / 10;
+
+            Node sumNode = new Node(sumVal % 10);
+            cursor.next = sumNode;
+            cursor = sumNode;
+
+            if(l1 != null) l1 = l1.next;
+            if(l2 != null) l2 = l2.next;
         }
-        //差位处理
-        if (p1 != null){
-            sum = p1;
-        }
-        if (p2 != null){
-            sum = p2;
-        }
-        //末位进1处理
-        if (sum != null && add == 1){
-            sum.value++;
-        }
-        if (sum == null && add == 1){
-            sum = new Node(1);
-        }
-        print(sum);
+        print(root.next);
 
     }
 
     public static void print(Node node) {
         while (node != null){
-            System.out.println(node.value);
+            System.out.println(node.val);
             node = node.next;
         }
     }
